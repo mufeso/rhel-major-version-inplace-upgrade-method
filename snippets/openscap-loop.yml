@@ -1,0 +1,18 @@
+---
+# ILLUSTRATIVE ONLY - not a working playbook.
+# The hardening idea: let OpenSCAP remediate what it can, fix the remaining
+# findings with environment-specific remediations, and scan again until clean.
+- name: Scan and remediate with OpenSCAP
+  ansible.builtin.command:
+    cmd: >-
+      oscap xccdf eval --remediate
+      --profile {{ upgrade_scap_profile }}
+      --results /var/tmp/upgrade-oscap-results.xml
+      {{ upgrade_scap_datastream }}
+  register: upgrade_oscap
+  changed_when: true
+  failed_when: upgrade_oscap.rc not in [0, 2]   # 2 = some rules still fail
+
+# Next (environment-specific): read the remaining failed rules from the results,
+# apply the remediations written for this environment, then scan again.
+# The gate passes only when the scan is clean.

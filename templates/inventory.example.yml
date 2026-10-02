@@ -1,0 +1,23 @@
+---
+# TEMPLATE - example names only. Group by environment (upgrade order) and by
+# server type (recovery-point method).
+all:
+  children:
+    env_dev:
+      hosts:
+        app-dev-01.example.com:
+    env_test:
+      hosts:
+        app-test-01.example.com:
+    env_prod:
+      hosts:
+        app-prod-01.example.com:
+    type_cloud:          # recovery point: AMI + volume snapshots
+      hosts:
+        app-dev-01.example.com:
+    type_virtual:        # recovery point: hypervisor snapshot
+      hosts:
+        app-test-01.example.com:
+    type_physical:       # recovery point: ReAR backup to network storage
+      hosts:
+        app-prod-01.example.com:

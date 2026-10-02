@@ -1,0 +1,12 @@
+---
+# ILLUSTRATIVE ONLY - not a working playbook.
+# A gate: if the stage did not finish cleanly, stop this server and say why.
+- name: Gate - stop here unless the pre-upgrade report is clean
+  ansible.builtin.assert:
+    that:
+      - upgrade_inhibitors | length == 0
+    fail_msg: >-
+      Stopped before the upgrade on {{ inventory_hostname }}:
+      {{ upgrade_inhibitors | map(attribute='title') | join('; ') }}.
+      Nothing was changed by the upgrade. Resolve or escalate, then re-run.
+    success_msg: Pre-upgrade report is clean; continuing.

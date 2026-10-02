@@ -1,0 +1,18 @@
+---
+# TEMPLATE - placeholder values only.
+
+# Target of the upgrade
+upgrade_target_major: 9
+
+# Recovery points
+upgrade_recovery_point_retention_days: 14
+upgrade_rear_nfs_target: nfs.example.com:/backups/rear
+
+# Patching and hardening
+upgrade_patch_baseline: "<baseline name, e.g. a Satellite content view>"
+upgrade_scap_profile: "<CIS profile id for the target version>"
+upgrade_scap_datastream: "<path to the SCAP data stream for the target version>"
+
+# Handoff
+upgrade_notify_to: operations-team@example.com
+upgrade_status_endpoint: "https://status.example.com/api/servers"

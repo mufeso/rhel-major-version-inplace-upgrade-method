@@ -1,0 +1,137 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 560" width="1000" height="560" font-family="'Red Hat Text','Segoe UI','Helvetica Neue',Arial,sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">RHEL major-version in-place upgrade: stages</title>
+  <desc id="d">Seven stages with a gate between each: pre-flight validation before the change window; then recovery point, Leapp pre-upgrade with remediation, upgrade and reboots, patching, hardening, and completion and handoff inside the window. Rarely, after testing on the new version, the application owners decide to roll back; a separate automation then restores the recovery point.</desc>
+  <defs>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#4d4d4d"/></marker>
+    <marker id="arrR" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#a30000"/></marker>
+    <filter id="sh" x="-10%" y="-10%" width="120%" height="130%"><feDropShadow dx="0" dy="2" stdDeviation="2.5" flood-color="#000" flood-opacity="0.12"/></filter>
+    <style>
+      .card{fill:#fff;stroke:#d2d2d2;stroke-width:1}
+      .num{font-size:13px;font-weight:700;fill:#fff}
+      .ttl{font-size:16px;font-weight:700;fill:#151515}
+      .sub{font-size:12.5px;fill:#4d4d4d}
+      .band{font-size:12px;font-weight:700;letter-spacing:1.2px}
+      .gate{font-size:10px;font-weight:700;fill:#3e8635}
+      .ic{fill:none;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+    </style>
+  </defs>
+
+  <rect width="1000" height="560" fill="#f8f8f8"/>
+
+  <!-- bands -->
+  <rect x="20" y="20" width="215" height="400" rx="10" fill="#e7f1fa"/>
+  <text x="127" y="44" text-anchor="middle" class="band" fill="#0066cc">BEFORE THE WINDOW</text>
+  <rect x="250" y="20" width="730" height="400" rx="10" fill="#fdf0e6"/>
+  <text x="615" y="44" text-anchor="middle" class="band" fill="#c46100">INSIDE THE CHANGE WINDOW</text>
+
+  <!-- row 1 -->
+  <!-- 1 pre-flight -->
+  <g filter="url(#sh)"><rect class="card" x="40" y="62" width="175" height="150" rx="8"/></g>
+  <rect x="40" y="62" width="175" height="6" rx="3" fill="#0066cc"/>
+  <circle cx="64" cy="92" r="13" fill="#0066cc"/><text x="64" y="96.5" text-anchor="middle" class="num">1</text>
+  <g class="ic" stroke="#0066cc" transform="translate(160,76)"><circle cx="14" cy="14" r="10"/><line x1="21" y1="21" x2="31" y2="31"/><polyline points="9,14 13,18 19,10"/></g>
+  <text x="56" y="138" class="ttl">Pre-flight</text>
+  <text x="56" y="160" class="sub">Read-only checks,</text>
+  <text x="56" y="177" class="sub">days or weeks ahead</text>
+  <text x="56" y="194" class="sub">No change to the server</text>
+
+  <!-- 2 recovery point -->
+  <g filter="url(#sh)"><rect class="card" x="270" y="62" width="160" height="150" rx="8"/></g>
+  <rect x="270" y="62" width="160" height="6" rx="3" fill="#5e40be"/>
+  <circle cx="294" cy="92" r="13" fill="#5e40be"/><text x="294" y="96.5" text-anchor="middle" class="num">2</text>
+  <g class="ic" stroke="#5e40be" transform="translate(378,74)"><ellipse cx="16" cy="7" rx="13" ry="5"/><path d="M3,7 v18 c0,3 6,5 13,5 s13,-2 13,-5 v-18"/><path d="M3,16 c0,3 6,5 13,5 s13,-2 13,-5"/></g>
+  <text x="286" y="138" class="ttl">Recovery point</text>
+  <text x="286" y="160" class="sub">By server type:</text>
+  <text x="286" y="177" class="sub">AMI + snapshots, VM</text>
+  <text x="286" y="194" class="sub">snapshot, or ReAR</text>
+
+  <!-- 3 pre-upgrade -->
+  <g filter="url(#sh)"><rect class="card" x="460" y="62" width="160" height="150" rx="8"/></g>
+  <rect x="460" y="62" width="160" height="6" rx="3" fill="#c46100"/>
+  <circle cx="484" cy="92" r="13" fill="#c46100"/><text x="484" y="96.5" text-anchor="middle" class="num">3</text>
+  <g class="ic" stroke="#c46100" transform="translate(570,74)"><rect x="3" y="2" width="22" height="28" rx="2"/><line x1="8" y1="10" x2="20" y2="10"/><line x1="8" y1="16" x2="20" y2="16"/><line x1="8" y1="22" x2="15" y2="22"/></g>
+  <text x="476" y="138" class="ttl">Pre-upgrade</text>
+  <text x="476" y="160" class="sub">Leapp report read;</text>
+  <text x="476" y="177" class="sub">each blocker fixed;</text>
+  <text x="476" y="194" class="sub">re-run until clean</text>
+
+  <!-- 4 upgrade -->
+  <g filter="url(#sh)"><rect class="card" x="650" y="62" width="160" height="150" rx="8"/></g>
+  <rect x="650" y="62" width="160" height="6" rx="3" fill="#a30000"/>
+  <circle cx="674" cy="92" r="13" fill="#a30000"/><text x="674" y="96.5" text-anchor="middle" class="num">4</text>
+  <g class="ic" stroke="#a30000" transform="translate(760,74)"><circle cx="15" cy="15" r="13"/><polyline points="9,15 15,9 21,15"/><line x1="15" y1="9" x2="15" y2="22"/></g>
+  <text x="666" y="138" class="ttl">Upgrade</text>
+  <text x="666" y="160" class="sub">Leapp upgrade; every</text>
+  <text x="666" y="177" class="sub">reboot driven and</text>
+  <text x="666" y="194" class="sub">health-checked</text>
+
+  <!-- row 2 -->
+  <!-- 5 patching -->
+  <g filter="url(#sh)"><rect class="card" x="460" y="250" width="160" height="150" rx="8"/></g>
+  <rect x="460" y="250" width="160" height="6" rx="3" fill="#0066cc"/>
+  <circle cx="484" cy="280" r="13" fill="#0066cc"/><text x="484" y="284.5" text-anchor="middle" class="num">5</text>
+  <g class="ic" stroke="#0066cc" transform="translate(570,262)"><path d="M3,10 l13,-7 l13,7 v14 l-13,7 l-13,-7 z"/><polyline points="10,16 15,21 22,13"/></g>
+  <text x="476" y="326" class="ttl">Patching</text>
+  <text x="476" y="348" class="sub">Up to the current</text>
+  <text x="476" y="365" class="sub">baseline, e.g. through</text>
+  <text x="476" y="382" class="sub">Red Hat Satellite</text>
+
+  <!-- 6 hardening -->
+  <g filter="url(#sh)"><rect class="card" x="650" y="250" width="160" height="150" rx="8"/></g>
+  <rect x="650" y="250" width="160" height="6" rx="3" fill="#5e40be"/>
+  <circle cx="674" cy="280" r="13" fill="#5e40be"/><text x="674" y="284.5" text-anchor="middle" class="num">6</text>
+  <g class="ic" stroke="#5e40be" transform="translate(760,262)"><path d="M15,2 l12,5 v9 c0,8 -6,13 -12,15 c-6,-2 -12,-7 -12,-15 v-9 z"/><polyline points="9,16 14,21 21,12"/></g>
+  <text x="666" y="326" class="ttl">Hardening</text>
+  <text x="666" y="348" class="sub">CIS with OpenSCAP;</text>
+  <text x="666" y="365" class="sub">fix what remains,</text>
+  <text x="666" y="382" class="sub">re-scan until clean</text>
+
+  <!-- 7 handoff -->
+  <g filter="url(#sh)"><rect class="card" x="830" y="250" width="135" height="150" rx="8"/></g>
+  <rect x="830" y="250" width="135" height="6" rx="3" fill="#3e8635"/>
+  <circle cx="854" cy="280" r="13" fill="#3e8635"/><text x="854" y="284.5" text-anchor="middle" class="num">7</text>
+  <g class="ic" stroke="#3e8635" transform="translate(916,262)"><line x1="5" y1="3" x2="5" y2="31"/><path d="M5,4 h20 l-5,7 l5,7 h-20"/></g>
+  <text x="846" y="326" class="ttl">Handoff</text>
+  <text x="846" y="348" class="sub">Team notified;</text>
+  <text x="846" y="365" class="sub">status published</text>
+  <text x="846" y="382" class="sub">for app teams</text>
+
+  <!-- arrows with gates -->
+  <g stroke="#4d4d4d" stroke-width="2" fill="none" marker-end="url(#arr)">
+    <path d="M215,137 H267"/>
+    <path d="M430,137 H457"/>
+    <path d="M620,137 H647"/>
+    <path d="M730,212 V231 H540 V247"/>
+    <path d="M620,325 H647"/>
+    <path d="M810,325 H827"/>
+  </g>
+  <g fill="#3e8635">
+    <rect x="234" y="130" width="14" height="14" transform="rotate(45 241 137)"/>
+    <rect x="433" y="132" width="10" height="10" transform="rotate(45 438 137)"/>
+    <rect x="623" y="132" width="10" height="10" transform="rotate(45 628 137)"/>
+    <rect x="630" y="226" width="10" height="10" transform="rotate(45 635 231)"/>
+    <rect x="623" y="320" width="10" height="10" transform="rotate(45 628 325)"/>
+    <rect x="811" y="320" width="10" height="10" transform="rotate(45 816 325)"/>
+  </g>
+
+  <!-- rollback -->
+  <g filter="url(#sh)"><rect x="250" y="250" width="180" height="150" rx="8" fill="#fff" stroke="#a30000" stroke-width="1.5" stroke-dasharray="6 4"/></g>
+  <g class="ic" stroke="#a30000" transform="translate(266,266)"><path d="M26,8 a12,12 0 1 0 3,10"/><polyline points="27,1 27,9 19,9"/></g>
+  <text x="304" y="288" class="ttl" fill="#a30000">Rollback</text>
+  <text x="377" y="288" class="sub" fill="#a30000" font-style="italic">(rare)</text>
+  <text x="266" y="318" class="sub">Only if app owners find in</text>
+  <text x="266" y="335" class="sub">testing that their software</text>
+  <text x="266" y="352" class="sub">is not supported yet.</text>
+  <text x="266" y="369" class="sub">Restores the server so</text>
+  <text x="266" y="386" class="sub">services are back online.</text>
+  <path d="M350,212 V246" stroke="#a30000" stroke-width="2" stroke-dasharray="5 4" fill="none" marker-end="url(#arrR)"/>
+
+  <!-- legend -->
+  <g transform="translate(20,440)">
+    <rect width="960" height="100" rx="10" fill="#fff" stroke="#e0e0e0"/>
+    <rect x="22" y="24" width="14" height="14" transform="rotate(45 29 31)" fill="#3e8635"/>
+    <text x="48" y="36" class="sub" fill="#151515"><tspan font-weight="700">Gate</tspan>: a server moves on only when the stage finished cleanly; otherwise the run stops and reports why.</text>
+    <line x1="18" y1="66" x2="40" y2="66" stroke="#a30000" stroke-width="2" stroke-dasharray="5 4"/>
+    <text x="48" y="70" class="sub" fill="#151515"><tspan font-weight="700">Rollback</tspan> (rare): decided by the application owners after testing on the new version; run by automation from the stage 2 recovery point.</text>
+  </g>
+</svg>

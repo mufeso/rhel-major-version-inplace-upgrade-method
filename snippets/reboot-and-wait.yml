@@ -1,0 +1,22 @@
+---
+# ILLUSTRATIVE ONLY - not a working playbook.
+# Reboot, wait for the server to come back, and confirm it is healthy before continuing.
+- name: Reboot and wait for the server to return
+  ansible.builtin.reboot:
+    reboot_timeout: 3600     # an upgrade reboot can take a long time
+  register: upgrade_reboot
+
+- name: Collect the state of system services
+  ansible.builtin.command:
+    cmd: systemctl is-system-running
+  register: upgrade_system_state
+  changed_when: false
+  failed_when: false
+
+- name: Gate - the server must be healthy after the reboot
+  ansible.builtin.assert:
+    that:
+      - upgrade_system_state.stdout in ['running']
+    fail_msg: >-
+      {{ inventory_hostname }} came back in state '{{ upgrade_system_state.stdout }}'.
+      Stopping here and alerting the analyst.

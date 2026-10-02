@@ -1,0 +1,25 @@
+---
+# ILLUSTRATIVE ONLY - not a working playbook.
+# Run the Leapp pre-upgrade, then read the blocking items (inhibitors) from its JSON report.
+- name: Run the Leapp pre-upgrade assessment
+  ansible.builtin.command:
+    cmd: leapp preupgrade
+  register: upgrade_preupgrade
+  changed_when: false
+  failed_when: false        # inhibitors are expected here; the report decides
+
+- name: Read the pre-upgrade report
+  ansible.builtin.slurp:
+    src: /var/log/leapp/leapp-report.json
+  register: upgrade_report_raw
+
+- name: Collect the inhibitors
+  ansible.builtin.set_fact:
+    upgrade_inhibitors: >-
+      {{ (upgrade_report_raw.content | b64decode | from_json).entries
+         | selectattr('groups', 'defined')
+         | selectattr('groups', 'contains', 'inhibitor')
+         | list }}
+
+# Next: remediate the inhibitors the automation knows how to fix, re-run the
+# pre-upgrade, and only then pass the gate (see stage-gate.yml).
