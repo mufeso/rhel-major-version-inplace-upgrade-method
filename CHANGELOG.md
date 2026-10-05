@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+- README: roadmap section (next step: RHEL-compatible distributions through ELevate).
+- Upstream contributions list updated (5 October 2026).
+
 ## v0.1.0 - 2026-10
 
 First public release.

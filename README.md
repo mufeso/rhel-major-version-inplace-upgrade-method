@@ -71,6 +71,14 @@ Details: [docs/02-stages.md](docs/02-stages.md) and [docs/03-rollback.md](docs/0
 Linux, Leapp, Red Hat Satellite, OpenSCAP with the CIS benchmark, ReAR (Relax-and-Recover),
 and the AWS and VMware APIs. Nothing here depends on a particular organization.
 
+## Roadmap
+
+- **Next: RHEL-compatible distributions.** Distributions such as AlmaLinux upgrade between major
+  versions with the same Leapp tool, through the AlmaLinux ELevate project. The next step is to
+  extend this method's checks to those distributions, starting with the upstream Leapp fix the
+  ELevate project asked for: counting leftover upgrade boot files as available `/boot` space
+  ([oamg/leapp-repository#1604](https://github.com/oamg/leapp-repository/pull/1604)).
+
 ## Author and license
 
 Written by Murilo Souza from his own professional experience. It contains no employer source
