@@ -4,6 +4,7 @@
 
 - README: roadmap section (next step: RHEL-compatible distributions through ELevate).
 - Upstream contributions list updated (5 October 2026).
+- Upstream contributions list updated (6 October 2026): aide #119 merged; merge dates added.
 
 ## v0.1.0 - 2026-10
 
