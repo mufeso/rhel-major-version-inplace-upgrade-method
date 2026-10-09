@@ -3,7 +3,7 @@
 When a problem comes from one of the open-source tools this method relies on, the right fix is in
 the tool itself, so every organization that uses it benefits. These are the fixes I have contributed.
 
-Status as of 8 October 2026.
+Status as of 9 October 2026.
 
 ## Merged (accepted into the project)
 
@@ -14,6 +14,14 @@ Status as of 8 October 2026.
 | linux-system-roles/aide (upstream of RHEL System Roles) | [#119](https://github.com/linux-system-roles/aide/pull/119) | Configures the aide cron check before the AIDE database is created (issue [#47](https://github.com/linux-system-roles/aide/issues/47)) | 5 October 2026 |
 | theforeman/foreman-ansible-modules (upstream of the Red Hat Satellite Ansible collection) | [#2048](https://github.com/theforeman/foreman-ansible-modules/pull/2048) | Documents that the inventory plugin's `legacy_hostvars` option needs `want_params` (issue [#1940](https://github.com/theforeman/foreman-ansible-modules/issues/1940)) | 7 October 2026 |
 | theforeman/foreman-ansible-modules | [#2049](https://github.com/theforeman/foreman-ansible-modules/pull/2049) | Updates the `activation_keys` role documentation for Simple Content Access, where auto-attach is obsolete (issue [#1902](https://github.com/theforeman/foreman-ansible-modules/issues/1902)) | 8 October 2026 |
+
+## Released (included in a published version)
+
+| Project | Version | Released | Contains |
+|---------|---------|----------|----------|
+| theforeman.foreman Ansible collection (upstream of the Red Hat Satellite Ansible collection) | [6.0.0](https://github.com/theforeman/foreman-ansible-modules/releases/tag/v6.0.0) ([Ansible Galaxy](https://galaxy.ansible.com/ui/repo/published/theforeman/foreman/)) | 9 October 2026 | #2048, #2049 |
+
+The Linux System Roles fixes (#341, #345, #119) will be listed here once a release includes them.
 
 ## In review (submitted, not merged yet)
 
