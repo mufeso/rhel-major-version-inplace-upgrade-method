@@ -60,7 +60,7 @@ Details: [docs/02-stages.md](docs/02-stages.md) and [docs/03-rollback.md](docs/0
 
 | Path | Contents |
 |------|----------|
-| [docs/](docs/) | The method, stage by stage, and why it matters |
+| [docs/](docs/) | The method, stage by stage, why it matters, and how to train the team that runs it ([docs/08-training-the-team.md](docs/08-training-the-team.md)) |
 | [checklists/](checklists/) | Pre-flight, go/no-go, post-upgrade validation, rollback decision |
 | [snippets/](snippets/) | Short illustrative examples (not a working playbook) |
 | [templates/](templates/) | Skeleton inventory and variable files (not a working product) |
