@@ -9,6 +9,7 @@
 - Upstream contributions list updated (9 October 2026): theforeman.foreman 6.0.0 released with #2048 and #2049.
 - Upstream contributions list updated (11 October 2026): infra.leapp #446 submitted.
 - New: docs/08-training-the-team.md, how to train operations analysts to run upgrades, patch cycles and rollbacks without the engineer.
+- Upstream contributions list updated (12 October 2026): infra.leapp #447 submitted.
 
 ## v0.1.0 - 2026-10
 
