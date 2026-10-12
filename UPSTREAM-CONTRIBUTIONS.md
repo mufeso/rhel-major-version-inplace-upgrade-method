@@ -3,7 +3,7 @@
 When a problem comes from one of the open-source tools this method relies on, the right fix is in
 the tool itself, so every organization that uses it benefits. These are the fixes I have contributed.
 
-Status as of 11 October 2026.
+Status as of 12 October 2026.
 
 ## Merged (accepted into the project)
 
@@ -34,5 +34,6 @@ The Linux System Roles fixes (#341, #345, #119) will be listed here once a relea
 | oamg/leapp-repository | [#1604](https://github.com/oamg/leapp-repository/pull/1604) | Counts leftover upgrade boot files as available `/boot` space after a failed attempt (issue [#1311](https://github.com/oamg/leapp-repository/issues/1311)) |
 | ansible-collections/amazon.aws | [#3140](https://github.com/ansible-collections/amazon.aws/pull/3140) | `acm` fails with `KeyError` when a certificate has no domain name (issue [#2405](https://github.com/ansible-collections/amazon.aws/issues/2405)) |
 | redhat-cop/infra.leapp | [#446](https://github.com/redhat-cop/infra.leapp/pull/446) | Re-registers with the post-upgrade Satellite activation key before setting the release, so a release such as `9` that only the post-upgrade content view offers can be set (issue [#386](https://github.com/redhat-cop/infra.leapp/issues/386)) |
+| redhat-cop/infra.leapp | [#447](https://github.com/redhat-cop/infra.leapp/pull/447) | Restores the original rescue kernel files if recreating the rescue kernel after the upgrade fails (issue [#422](https://github.com/redhat-cop/infra.leapp/issues/422)) |
 
 This list is updated as pull requests are reviewed and merged.
