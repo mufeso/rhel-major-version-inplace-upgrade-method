@@ -10,6 +10,7 @@
 - Upstream contributions list updated (11 October 2026): infra.leapp #446 submitted.
 - New: docs/08-training-the-team.md, how to train operations analysts to run upgrades, patch cycles and rollbacks without the engineer.
 - Upstream contributions list updated (12 October 2026): infra.leapp #447 submitted.
+- Upstream contributions list updated (13 October 2026): leapp-repository #1604 merged.
 
 ## v0.1.0 - 2026-10
 
