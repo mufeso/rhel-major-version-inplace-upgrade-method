@@ -34,13 +34,15 @@ with a gate between stages so a server only moves on when it is safe:
 | # | Stage | What happens |
 |---|-------|--------------|
 | 1 | Pre-flight validation | Read-only checks, run days or weeks before the change window |
-| 2 | Recovery point | A full backup or snapshot suited to the server type (cloud, virtual, physical) |
+| 2 | Recovery points | A full platform copy suited to the server type (AMI and EBS snapshots, VM snapshot or ReaR backup), plus an LVM snapshot for a faster OS-only rollback |
 | 3 | Leapp pre-upgrade + remediation | Read the Leapp report, fix each blocker, re-run until clean |
 | 4 | Upgrade | Run the Leapp upgrade and drive every reboot, waiting for a healthy state |
-| 5 | Patching | Bring the upgraded server to the current patch baseline (e.g. through Red Hat Satellite) |
-| 6 | Hardening | CIS benchmark with OpenSCAP remediation, then fix what remains and re-scan until clean |
-| 7 | Completion and handoff | Notify the team and publish the server's status for the next teams |
-| — | Rollback | A separate, unattended automation that restores the recovery point |
+| 5 | Patching | Bring the upgraded server to the same baseline as its peer servers (e.g. through Red Hat Satellite) |
+| 6 | Validation | Check, and reinstall where needed, the tools and agents the organization requires |
+| 7 | Security hardening | CIS benchmark with OpenSCAP remediation, then fix what remains and re-scan until clean |
+| 8 | Completion and handoff | Notify the team and publish the server's status for the next teams |
+| — | Rollback | A separate, fully automated run that restores the recovery points, for many servers in parallel |
+| — | Recovery point expiry | Platform recovery point and LVM snapshots removed automatically two weeks after the upgrade |
 
 Details: [docs/02-stages.md](docs/02-stages.md) and [docs/03-rollback.md](docs/03-rollback.md).
 
@@ -66,18 +68,38 @@ Details: [docs/02-stages.md](docs/02-stages.md) and [docs/03-rollback.md](docs/0
 | [templates/](templates/) | Skeleton inventory and variable files (not a working product) |
 | [UPSTREAM-CONTRIBUTIONS.md](UPSTREAM-CONTRIBUTIONS.md) | Fixes I contributed to the open-source tools this method relies on |
 
-## Built on standard components
+## Related projects
 
-Linux, Leapp, Red Hat Satellite, OpenSCAP with the CIS benchmark, ReAR (Relax-and-Recover),
-and the AWS and VMware APIs. Nothing here depends on a particular organization.
+This method does not replace any of the tools it uses; it combines them into one end-to-end run.
+Each one is documented and maintained by its own project:
+
+- **[infra.leapp](https://github.com/redhat-cop/infra.leapp)**: Red Hat's Ansible roles for Leapp
+  upgrades (analysis, remediation, upgrade). As its README puts it, running upgrades at scale "needs
+  automation tailored to your environment", and the roles are "the foundation" for that. This method
+  is about that tailoring: the stages around the core Leapp steps.
+- **[Leapp](https://github.com/oamg/leapp-repository)**: the in-place upgrade tool itself.
+- **[Red Hat Satellite](https://www.redhat.com/en/technologies/management/satellite)**: patching to
+  the environment's baseline.
+- **[Linux System Roles](https://linux-system-roles.github.io/)**: the upstream of RHEL System Roles,
+  used for standard configuration.
+- **[OpenSCAP](https://github.com/OpenSCAP/openscap)** with the CIS content from
+  **[ComplianceAsCode](https://github.com/ComplianceAsCode/content)**: security hardening.
+- **[ReaR (Relax-and-Recover)](https://github.com/rear/rear)**: recovery points for physical servers.
+- The Ansible collections for **[AWS](https://github.com/ansible-collections/amazon.aws)** and
+  **[VMware](https://github.com/ansible-collections/community.vmware)**: recovery points for cloud
+  instances and virtual machines.
+
+Nothing here depends on a particular organization. Where a fix belongs in one of these projects, it
+is sent there ([UPSTREAM-CONTRIBUTIONS.md](UPSTREAM-CONTRIBUTIONS.md)).
 
 ## Roadmap
 
 - **Next: RHEL-compatible distributions.** Distributions such as AlmaLinux upgrade between major
   versions with the same Leapp tool, through the AlmaLinux ELevate project. The next step is to
-  extend this method's checks to those distributions, starting with the upstream Leapp fix the
-  ELevate project asked for: counting leftover upgrade boot files as available `/boot` space
-  ([oamg/leapp-repository#1604](https://github.com/oamg/leapp-repository/pull/1604)).
+  extend this method's checks to those distributions. The first upstream Leapp fix for that path,
+  counting leftover upgrade boot files as available `/boot` space
+  ([oamg/leapp-repository#1604](https://github.com/oamg/leapp-repository/pull/1604)), has been
+  merged and is already included by AlmaLinux in ELevate NG.
 
 ## Author and license
 

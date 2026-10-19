@@ -22,22 +22,31 @@ version of their software, and the server is upgraded again later.
 ## What the rollback run does
 
 1. Shuts the server down.
-2. Restores the recovery point taken in stage 2 of the upgrade, using the method that matches the
-   server type:
+2. Restores the recovery point that fits the decision:
 
-   | Server type | Restored from |
-   |-------------|---------------|
-   | Cloud instance (Amazon EC2) | The AMI and volume snapshots |
-   | Virtual machine (VMware) | The VM snapshot |
-   | Physical server | The ReAR (Relax-and-Recover) backup |
+   - **Operating system only**, inside the server (the application itself was not changed on the new
+     version): reverts the LVM snapshots and restores `/boot`. This is the faster path.
+   - **Whole server**, at the platform level, outside the operating system (for example the
+     application team has already changed its software, data or configuration on the new version):
+     restores the platform recovery point taken in stage 2 of the upgrade from the cloud, the
+     hypervisor or the backup, using the method that matches the server type:
 
-3. Brings the server back up on the previous major version and confirms it is healthy.
+     | Server type | Restored from |
+     |-------------|---------------|
+     | Cloud instance (Amazon EC2) | The AMI and volume snapshots |
+     | Virtual machine (VMware) | The VM snapshot |
+     | Physical server | The ReAR (Relax-and-Recover) backup |
 
-Because it runs unattended and quickly, an incompatibility that would otherwise mean an extended
-outage becomes a short, controlled return to a known-good state.
+3. Brings the server back up on the previous major version, in its state at the start of the change
+   window, and confirms it is healthy.
+
+Once the decision is made, even a junior Linux analyst can start the rollback and recover as many
+servers as needed, in parallel. Because it runs unattended and quickly, an incompatibility that
+would otherwise mean an extended outage becomes a short, controlled return to a known-good state.
 
 ## Why the recovery points expire
 
-Recovery points are kept only for a fixed period after the upgrade (for example fourteen days). Once
-the application owners have tested and the server has run cleanly for that long, the upgrade is
-considered successful and the old recovery point is removed to control storage cost.
+The platform recovery point and the LVM snapshots are removed automatically two weeks after the
+upgrade. That window gives the application owners plenty of time to make sure their software works as
+expected on the new major version; once the server has run cleanly for that long, the upgrade is
+considered successful and the old recovery points are removed to control storage cost.

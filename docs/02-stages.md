@@ -11,7 +11,7 @@ Everything that can be done safely without touching the server is done before th
 inside the window is automated so that as many servers as possible finish within it.
 
 <p align="center">
-  <img src="../images/upgrade-stages.svg" alt="The seven stages with a gate between each: pre-flight before the change window; recovery point, pre-upgrade with remediation, upgrade, patching, hardening and handoff inside the window; a separate rollback restores the recovery point." width="100%">
+  <img src="../images/upgrade-stages.svg" alt="The eight stages with a gate between each: pre-flight before the change window; recovery points, pre-upgrade with remediation, upgrade, patching, validation, hardening and handoff inside the window; a separate, automated rollback restores the recovery points." width="100%">
 </p>
 
 ---
@@ -34,7 +34,7 @@ still time to fix them outside the window.
 
 **Gate:** the server is scheduled for the window only if pre-flight passes.
 
-## 2. Recovery point, by server type
+## 2. Recovery points: a full platform copy and an LVM snapshot
 
 **When:** at the start of the window, before the upgrade itself.
 
@@ -48,9 +48,23 @@ captures a **full** recovery point suited to that type. A common mix is:
 | Virtual machine (on-premises VMware) | Use the VMware APIs to find the machine and its hypervisor, then snapshot the whole machine and its volumes |
 | Physical server | Create a full ReAR (Relax-and-Recover) backup and store it on a separate network file system |
 
-**Housekeeping:** the automation also schedules automatic deletion of these snapshots and backups
-after a fixed period (for example fourteen days). A server that has run cleanly for that long is a
-successful upgrade, and removing old recovery points keeps storage cost under control.
+**Why a full copy of the server:** after the operating-system upgrade, application teams, usually
+running third-party software, often have to change their configuration or upgrade their application
+or middleware to a version supported on the new release. That work can change application data and
+configuration in ways that only a complete copy of the server can undo, so the method is built to
+recover from that worst case.
+
+**A second, faster recovery point: an LVM snapshot.** On top of the platform recovery point, the
+automation takes LVM snapshots of the operating-system logical volumes and keeps a copy of `/boot`.
+When only the operating system needs to be rolled back, reverting them is much faster than restoring
+the whole server. They cannot be the only recovery point: many servers do not have enough free space
+in their root and application volume groups to snapshot every logical volume.
+
+**Housekeeping:** the automation also schedules the automatic removal of the platform recovery point
+and the LVM snapshots two weeks after the upgrade. That window gives the application owners time to
+make sure their software works as expected on the new major version; a server that has run cleanly
+for that long is a successful upgrade, and removing old recovery points keeps storage cost under
+control.
 
 **Gate:** no recovery point, no upgrade.
 
@@ -85,12 +99,28 @@ the analyst, so the problem is caught immediately instead of being discovered la
 ## 5. Patching to the current baseline
 
 A Leapp upgrade lands the server on a base release of the new major version, which is not the latest
-patch level. The automation then patches the server up to the organization's current patch baseline,
-for example through **Red Hat Satellite**.
+patch level. The automation then patches the server to the same baseline as the other servers in the
+same environment running the same application or middleware, for example through **Red Hat
+Satellite**.
 
-**Gate:** the server must be at the baseline before hardening starts.
+**Gate:** the server must be at that baseline before validation starts.
 
-## 6. Hardening, including what the tool cannot fix
+## 6. Validation of the required tools and agents
+
+An in-place upgrade can remove or break software that does not come from the operating system
+itself. The automation checks, and reinstalls where needed, the tools and agents each server must
+run under the organization's policies, for example:
+
+- endpoint security and threat detection;
+- vulnerability scanning;
+- log forwarding;
+- infrastructure and application performance monitoring;
+- configuration discovery for the CMDB;
+- backup.
+
+**Gate:** every required tool and agent is installed, running and reporting.
+
+## 7. Security hardening, including what the tool cannot fix
 
 The upgraded, patched server must now meet the security baseline for the new release, for example the
 **CIS benchmark**, checked with **OpenSCAP**.
@@ -103,11 +133,11 @@ The upgraded, patched server must now meet the security baseline for the new rel
 At this stage the automation also applies any operating-system changes that the application and
 middleware components on that server need in order to run on the new major version.
 
-**Gate:** a clean scan.
+**Gate:** a clean scan. Only then is the server considered successfully upgraded.
 
-## 7. Completion and handoff
+## 8. Completion and handoff
 
-When the server is upgraded, patched and hardened, the automation:
+When the server is upgraded, patched, validated and hardened, the automation:
 
 - notifies the operations team that the upgrade is complete (for example by email);
 - publishes the server's new status to a shared record (for example a database).
@@ -125,8 +155,8 @@ the new major version.
 Thanks to the gates, the upgrade itself very rarely has to be undone. A rollback is normally needed
 for a different reason: during their testing after the handoff, the application or middleware
 owners find that their software is not yet supported on the new major version. The decision is
-theirs; the rollback itself is a **separate** automation that restores the recovery point taken in
-stage 2. See [03-rollback.md](03-rollback.md).
+theirs; the rollback itself is a **separate**, fully automated run that restores the recovery points
+taken in stage 2. See [03-rollback.md](03-rollback.md).
 
 ## What this page does not include
 
