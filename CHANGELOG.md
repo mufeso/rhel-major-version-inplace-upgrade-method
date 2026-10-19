@@ -2,6 +2,22 @@
 
 ## Unreleased
 
+## v1.0.1 - 2026-10-19
+
+- Stages updated to match the method as run in production: a full platform recovery point plus an
+  LVM snapshot for a faster OS-only rollback; patching to the same baseline as peer servers; a new
+  validation stage for the tools and agents the organization requires; security hardening as the
+  last stage before handoff; automated rollback from either recovery point, for many servers in
+  parallel; recovery points removed automatically two weeks after the upgrade. README table, stage
+  diagram, docs/02-stages.md, docs/03-rollback.md and the post-upgrade checklist updated.
+- README: new "Related projects" section (infra.leapp, Leapp, Red Hat Satellite, Linux System
+  Roles, OpenSCAP and ComplianceAsCode, ReaR, the AWS and VMware Ansible collections), replacing
+  "Built on standard components"; roadmap updated (leapp-repository #1604 merged and included in
+  AlmaLinux ELevate NG).
+- Upstream contributions list updated (19 October 2026): insights-core #4825 merged (14 October)
+  and released in 3.8.3; OpenSCAP #2451 submitted; new "Adopted by other projects" section
+  (AlmaLinux ELevate NG includes leapp-repository #1604).
+
 ## v1.0.0 - 2026-10-13
 
 - README: roadmap section (next step: RHEL-compatible distributions through ELevate).
