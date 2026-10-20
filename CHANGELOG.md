@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+## v1.0.2 - 2026-10-20
+
+- Upstream contributions list updated (20 October 2026): amazon.aws #3140 and OpenSCAP #2451
+  merged; nine fixes merged in total, five in review.
+
 ## v1.0.1 - 2026-10-19
 
 - Stages updated to match the method as run in production: a full platform recovery point plus an
