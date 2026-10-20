@@ -10,3 +10,4 @@ they are not a working playbook and are not meant to be run as they are. Variabl
 | [leapp-preupgrade-report.yml](leapp-preupgrade-report.yml) | Running the Leapp pre-upgrade and reading the inhibitors from its report |
 | [reboot-and-wait.yml](reboot-and-wait.yml) | A reboot followed by a health check before the next stage |
 | [openscap-loop.yml](openscap-loop.yml) | The scan, remediate, re-scan idea for hardening |
+

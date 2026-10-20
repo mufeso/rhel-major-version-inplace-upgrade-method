@@ -7,3 +7,4 @@ here describes a real environment.
 |------|---------|
 | [inventory.example.yml](inventory.example.yml) | Servers grouped by environment and by server type |
 | [group_vars/all.example.yml](group_vars/all.example.yml) | Settings shared by every stage |
+
