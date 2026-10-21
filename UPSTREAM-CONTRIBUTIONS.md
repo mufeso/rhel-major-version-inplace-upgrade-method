@@ -3,7 +3,7 @@
 When a problem comes from one of the open-source tools this method relies on, the right fix is in
 the tool itself, so every organization that uses it benefits. These are the fixes I have contributed.
 
-Status as of 20 October 2026.
+Status as of 21 October 2026.
 
 ## Merged (accepted into the project)
 
@@ -18,6 +18,7 @@ Status as of 20 October 2026.
 | RedHatInsights/insights-core | [#4825](https://github.com/RedHatInsights/insights-core/pull/4825) | `show_rule_report` pages the full rule report instead of the wrong variable (issue [#4672](https://github.com/RedHatInsights/insights-core/issues/4672)) | 14 October 2026 |
 | ansible-collections/amazon.aws | [#3140](https://github.com/ansible-collections/amazon.aws/pull/3140) | `acm` no longer fails with `KeyError` when a certificate has no domain name (issue [#2405](https://github.com/ansible-collections/amazon.aws/issues/2405)) | 20 October 2026 |
 | OpenSCAP/openscap (the SCAP compliance scanner shipped in RHEL) | [#2451](https://github.com/OpenSCAP/openscap/pull/2451) | Ships `oscap-run-sce-script` with the SCE engine package, so SCE checks work when `/tmp` is mounted `noexec`, as CIS hardening requires (issue [#2414](https://github.com/OpenSCAP/openscap/issues/2414)) | 20 October 2026 |
+| candlepin/subscription-manager (RHEL registration client) | [#3786](https://github.com/candlepin/subscription-manager/pull/3786) | Shows the real SSL error instead of a certificate error during first registration (issue [#3640](https://github.com/candlepin/subscription-manager/issues/3640)) | 21 October 2026 |
 
 ## Released (included in a published version)
 
@@ -38,7 +39,6 @@ The Linux System Roles fixes (#341, #345, #119) will be listed here once a relea
 
 | Project | Pull request | What it fixes |
 |---------|--------------|---------------|
-| candlepin/subscription-manager (RHEL registration client) | [#3786](https://github.com/candlepin/subscription-manager/pull/3786) | The real SSL error is hidden by a certificate error during first registration (issue [#3640](https://github.com/candlepin/subscription-manager/issues/3640)) |
 | redhat-cop/infra.leapp | [#439](https://github.com/redhat-cop/infra.leapp/pull/439) | Makes `cleanup_logs` idempotent (issue [#419](https://github.com/redhat-cop/infra.leapp/issues/419)) |
 | oamg/leapp-repository | [#1602](https://github.com/oamg/leapp-repository/pull/1602) | Clarifies the SELinux report after the upgrade (issue [#815](https://github.com/oamg/leapp-repository/issues/815)) |
 | redhat-cop/infra.leapp | [#446](https://github.com/redhat-cop/infra.leapp/pull/446) | Re-registers with the post-upgrade Satellite activation key before setting the release, so a release such as `9` that only the post-upgrade content view offers can be set (issue [#386](https://github.com/redhat-cop/infra.leapp/issues/386)) |

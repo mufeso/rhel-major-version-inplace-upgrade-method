@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+## v1.0.3 - 2026-10-21
+
+- Upstream contributions list updated (21 October 2026): subscription-manager #3786
+  merged; ten fixes merged in total, four in review.
+
 ## v1.0.2 - 2026-10-20
 
 - Upstream contributions list updated (20 October 2026): amazon.aws #3140 and OpenSCAP #2451
