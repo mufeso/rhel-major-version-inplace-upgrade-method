@@ -1,6 +1,9 @@
 # Changelog
 
-## Unreleased
+## v1.1.0 - 2026-10-22
+
+- Upstream contributions list updated (22 October 2026): OpenSCAP #2451 released in OpenSCAP 1.4.6;
+  four fixes now in published versions.
 
 ## v1.0.3 - 2026-10-21
 
