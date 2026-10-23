@@ -3,7 +3,7 @@
 When a problem comes from one of the open-source tools this method relies on, the right fix is in
 the tool itself, so every organization that uses it benefits. These are the fixes I have contributed.
 
-Status as of 21 October 2026.
+Status as of 22 October 2026.
 
 ## Merged (accepted into the project)
 
@@ -26,6 +26,7 @@ Status as of 21 October 2026.
 |---------|---------|----------|----------|
 | theforeman.foreman Ansible collection (upstream of the Red Hat Satellite Ansible collection) | [6.0.0](https://github.com/theforeman/foreman-ansible-modules/releases/tag/v6.0.0) ([Ansible Galaxy](https://galaxy.ansible.com/ui/repo/published/theforeman/foreman/)) | 9 October 2026 | #2048, #2049 |
 | insights-core | [3.8.3](https://github.com/RedHatInsights/insights-core/releases/tag/insights-core-3.8.3) | 19 October 2026 | #4825 |
+| OpenSCAP | [1.4.6](https://github.com/OpenSCAP/openscap/releases/tag/1.4.6) | 22 October 2026 | #2451 |
 
 The Linux System Roles fixes (#341, #345, #119) will be listed here once a release includes them.
 
