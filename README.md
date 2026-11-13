@@ -11,13 +11,21 @@ low-risk operation.
 
 ## The problem
 
-Routine patching inside one RHEL major version is well understood. The hard step comes at the
-end of a major version's life cycle, when servers must move to the next major version. Red Hat's
+Routine patching inside one RHEL major version is well understood. The hard step comes at the end
+of a major version's life cycle, when servers must move to the next major version. Red Hat's
 supported tool for an in-place upgrade, **Leapp**, performs the version change itself. Everything
 around it is left to the engineer: a recovery point, fixing upgrade blockers, the reboots,
-patching to the current baseline, security hardening, and rolling back if something fails.
-Done by hand, that is a long sequence of steps that each need senior engineering judgment, so
-many organizations defer the upgrade and keep running versions at or past end of maintenance.
+patching to the current baseline, checking the tools and agents the organization requires
+(security, log forwarding, monitoring, backup) and reconfiguring or reinstalling them where
+needed, security hardening, and rolling back if something fails. Done by hand, that is a long
+sequence of steps that each need senior engineering judgment, so many organizations defer the
+upgrade and keep running versions at or past end of maintenance.
+
+That work has to be tailored to each organization's servers and applications. Red Hat's own
+upgrade guide says so: "in certain cases, you have to create custom actors, which specify actions
+to be performed by Leapp during the upgrade, for example, reconfiguring an application or
+installing a specific hardware driver" ([Upgrading from RHEL 8 to RHEL 9, Planning an
+upgrade](https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/upgrading_from_rhel_8_to_rhel_9/planning-an-upgrade-to-rhel-9_upgrading-from-rhel-8-to-rhel-9)).
 
 This method automates all of the work around Leapp, so the in-place path becomes the faster
 and safer choice.
@@ -38,7 +46,7 @@ with a gate between stages so a server only moves on when it is safe:
 | 3 | Leapp pre-upgrade + remediation | Read the Leapp report, fix each blocker, re-run until clean |
 | 4 | Upgrade | Run the Leapp upgrade and drive every reboot, waiting for a healthy state |
 | 5 | Patching | Bring the upgraded server to the same baseline as its peer servers (e.g. through Red Hat Satellite) |
-| 6 | Validation | Check, and reinstall where needed, the tools and agents the organization requires |
+| 6 | Validation | Check, and reconfigure or reinstall where needed, the tools and agents the organization requires |
 | 7 | Security hardening | CIS benchmark with OpenSCAP remediation, then fix what remains and re-scan until clean |
 | 8 | Completion and handoff | Notify the team and publish the server's status for the next teams |
 | — | Rollback | A separate, fully automated run that restores the recovery points, for many servers in parallel |
