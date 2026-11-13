@@ -108,8 +108,8 @@ Satellite**.
 ## 6. Validation of the required tools and agents
 
 An in-place upgrade can remove or break software that does not come from the operating system
-itself. The automation checks, and reinstalls where needed, the tools and agents each server must
-run under the organization's policies, for example:
+itself. The automation checks, and reconfigures or reinstalls where needed, the tools and agents
+each server must run under the organization's policies, for example:
 
 - endpoint security and threat detection;
 - vulnerability scanning;

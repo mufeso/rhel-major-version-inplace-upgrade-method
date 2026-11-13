@@ -1,5 +1,16 @@
 # Changelog
 
+## v1.2.0 - 2026-11-12
+
+- Upstream contributions list updated (12 November 2026): leapp-repository #1602 merged;
+  eleven fixes merged in total, three in review.
+- README: "The problem" now also lists checking the tools and agents the organization requires
+  and reconfiguring or reinstalling them where needed.
+- README: "The problem" now notes that the work must be tailored to each organization, quoting
+  Red Hat's RHEL 8 to RHEL 9 upgrade guide on custom actors.
+- Stage 6 (validation): the required tools and agents are reconfigured or reinstalled where
+  needed (README table and docs/02-stages.md).
+
 ## v1.1.0 - 2026-10-22
 
 - Upstream contributions list updated (22 October 2026): OpenSCAP #2451 released in OpenSCAP 1.4.6;
